@@ -1,0 +1,83 @@
+server:
+  port: 10000
+cors:
+  allowed-origins:
+    - http://localhost:8080
+  allowed-methods:
+    - OPTIONS
+    - GET
+    - PUT
+    - POST
+    - PATCH
+    - DELETE
+  allowed-headers:
+    - Accept
+    - Authorization
+    - Content-Type
+    - Access-Control-Allow-Origin
+    - Access-Control-Allow-Methods
+    - Access-Control-Allow-Headers
+    - Access-Control-Expose-Headers
+  exposed-headers:
+    - Access-Control-Allow-Origin
+    - Access-Control-Allow-Headers
+    - Access-Control-Expose-Headers
+    - Content-Type
+    - Authorization
+    - Accept
+  allow-credentials: true
+---
+spring:
+  profiles:
+    - kubernetes
+  jpa:
+    hibernate:
+      ddl-auto: update
+    database: mysql
+    properties:
+      hibernate:
+        generate_statistics: true
+        enable_lazy_load_no_trans: true
+        jdbc:
+          time_zone: UTC
+          batch_size: 10
+          fetch_size: 100
+          connection:
+            release_mode: after_transaction
+    generate-ddl: true
+  datasource:
+    url: jdbc:mysql://author-db-svc:3306/${MYSQL_DATABASE}?useSSL=false
+    username: ${MYSQL_USER}
+    password: ${MYSQL_PASSWORD}
+    platform: mysql
+    initialization-mode: always
+server:
+  port: 10000
+cors:
+  allowed-origins:
+    - http://localhost:8080
+  allowed-methods:
+    - OPTIONS
+    - GET
+    - PUT
+    - POST
+    - PATCH
+    - DELETE
+  allowed-headers:
+    - traceparent
+    - Accept
+    - Authorization
+    - Content-Type
+    - Access-Control-Allow-Origin
+    - Access-Control-Allow-Methods
+    - Access-Control-Allow-Headers
+    - Access-Control-Expose-Headers
+  exposed-headers:
+    - traceparent
+    - Access-Control-Allow-Origin
+    - Access-Control-Allow-Headers
+    - Access-Control-Expose-Headers
+    - Content-Type
+    - Authorization
+    - Accept
+  allow-credentials: true

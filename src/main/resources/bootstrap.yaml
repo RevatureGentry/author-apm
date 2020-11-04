@@ -1,0 +1,18 @@
+spring:
+  application:
+    name: author-service
+server:
+  error:
+    include-stacktrace: never
+management:
+  endpoint:
+    metrics:
+      enabled: true
+    health:
+      enabled: true
+    info:
+      enabled: true
+  endpoints:
+    web:
+      exposure:
+        include: health,info,metrics
